@@ -13,7 +13,14 @@ from pprint import pprint
 
 
 def create_zip_file(file_path, target_dir):
-    directories_to_ignore = [".git", ".github", "dist", ".gitignore"]
+    directories_to_ignore = [
+        ".git",
+        ".github",
+        "dist",
+        ".gitignore",
+        "Makefile",
+        "setup.py",
+    ]
     zipobj = zipfile.ZipFile(file_path, "w", zipfile.ZIP_DEFLATED)
     rootlen = len(target_dir) + 1
 

@@ -30,3 +30,6 @@ version: upload clean
 	git commit -a -m "Bump to $(next)"
 
 push: clean
+	git add -A
+	git commit --amend --no-edit 
+	git push -u origin main:main -f
