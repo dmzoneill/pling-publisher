@@ -22,18 +22,12 @@ def create_zip_file(file_path, target_dir):
     pprint(target_dir)
 
     for base, dirs, files in os.walk(target_dir):
-
-        print("create_zip_file directory:")
-        pprint(base)
-
         if any(ignore_directory in base for ignore_directory in directories_to_ignore):
             print("skip:" + base)
             continue
 
         for file in files:
-
             pprint(file)
-
             fn = os.path.join(base, file)
             zipobj.write(fn, fn[rootlen:])
 
