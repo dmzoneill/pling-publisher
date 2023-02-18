@@ -9,7 +9,7 @@ import re
 import sys
 import base64
 from urllib import parse
-import calendar
+from pprint import pprint
 
 
 def create_zip_file(file_path, target_dir):
@@ -17,10 +17,16 @@ def create_zip_file(file_path, target_dir):
     zipobj = zipfile.ZipFile(file_path, "w", zipfile.ZIP_DEFLATED)
     rootlen = len(target_dir) + 1
     for base, dirs, files in os.walk(target_dir):
+
+        pprint(base)
+
         if any(ignore_directory in base for ignore_directory in directories_to_ignore):
             continue
 
         for file in files:
+
+            pprint(file)
+
             fn = os.path.join(base, file)
             zipobj.write(fn, fn[rootlen:])
 
