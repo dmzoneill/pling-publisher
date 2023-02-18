@@ -17,14 +17,17 @@ def create_zip_file(file_path, target_dir):
     zipobj = zipfile.ZipFile(file_path, "w", zipfile.ZIP_DEFLATED)
     rootlen = len(target_dir) + 1
 
+    print("create_zip_file")
     pprint(file_path)
     pprint(target_dir)
 
     for base, dirs, files in os.walk(target_dir):
 
+        print("create_zip_file directory:")
         pprint(base)
 
         if any(ignore_directory in base for ignore_directory in directories_to_ignore):
+            print("skip:" + base)
             continue
 
         for file in files:
