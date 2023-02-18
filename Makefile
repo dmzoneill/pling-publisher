@@ -4,17 +4,29 @@ all: clean push
 
 SHELL := /bin/bash
 CWD := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+version := $(shell grep '^Version:' PKG-INFO | sed 's/Version: //')
+next := $(shell echo ${version} | awk -F. '/[0-9]+\./{$$NF++;print}' OFS=.)
 
-clean: 
+lint:
+	black -v *.py
+	black -v pling_publisher/*.py
+
+clean: lint
 	rm -rvf dist
 
-push: clean
-	git add -A
-	git commit --amend --no-edit 
-	git push -u origin main:main -f
+bump: clean
+	sed "s/$(version)/$(next)/" -i PKG-INFO 
+	sed "s/$(version)/$(next)/" -i pyproject.toml 
+	sed "s/$(version)/$(next)/" -i setup.py 
 
-upload: clean
+upload: bump
 	python3 -m pip install --upgrade build
 	python3 -m pip install --upgrade twine
 	python3 -m build
 	python3 -m twine upload --repository pypi dist/*
+
+version: upload clean
+	git add -A
+	git commit -a -m "Bump to $(next)"
+
+push: clean
