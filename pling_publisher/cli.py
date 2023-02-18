@@ -57,6 +57,6 @@ def build(directory: str = os.getcwd()):
     os.mkdir(dist_directory)
 
     full_zip_path = os.path.join(dist_directory, upload_filename)
-    create_zip_file(full_zip_path, dist_directory)
+    create_zip_file(full_zip_path, directory)
     typer.echo(f"Created zip file: {full_zip_path}")
     return full_zip_path
