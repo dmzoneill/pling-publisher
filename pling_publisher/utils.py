@@ -16,6 +16,10 @@ def create_zip_file(file_path, target_dir):
     directories_to_ignore = [".git", ".github", "dist"]
     zipobj = zipfile.ZipFile(file_path, "w", zipfile.ZIP_DEFLATED)
     rootlen = len(target_dir) + 1
+
+    pprint(file_path)
+    pprint(target_dir)
+
     for base, dirs, files in os.walk(target_dir):
 
         pprint(base)
