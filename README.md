@@ -23,4 +23,4 @@ You can also provide your username, password and project_id via environment vari
 
 
 ## Support
-Feel free to submit a pull request
+Feel free to submit a pull request.
