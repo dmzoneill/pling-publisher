@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pling-publisher"
-version = "0.1.12"
+version = "0.1.13"
 description = ""
 readme = "README.md"
 repository = "https://github.com/dmzoneill/pling-publisher"
