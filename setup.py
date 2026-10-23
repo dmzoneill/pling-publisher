@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+"""Packaging configuration for pling-publisher."""
+
 from setuptools import setup
 
 packages = ["pling_publisher"]
 
 package_data = {"": ["*"]}
 
-install_requires = ["requests", "typer"]
+install_requires = [
+    "requests>=2.33.0",
+    "typer",
+    "urllib3>=2.8.0",
+    "pygments>=2.20.0",
+]
 
 entry_points = {"console_scripts": ["pling = pling_publisher.cli:app"]}
 
@@ -43,7 +50,7 @@ setup_kwargs = {
     "package_data": package_data,
     "install_requires": install_requires,
     "entry_points": entry_points,
-    "python_requires": ">=3.8,<4.0",
+    "python_requires": ">=3.10,<4.0",
 }
 
 
