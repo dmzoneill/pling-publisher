@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Packaging configuration for pling-publisher."""
 
 from setuptools import setup
