@@ -9,7 +9,6 @@ import re
 import sys
 import base64
 from urllib import parse
-from pprint import pprint
 
 
 def create_zip_file(file_path, target_dir):
