@@ -4,8 +4,8 @@ import base64
 import os
 import re
 import sys
-import zipfile
 from urllib import parse
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import requests
 import typer
@@ -35,7 +35,7 @@ def create_zip_file(file_path, target_dir):
     ]
     rootlen = len(target_dir) + 1
 
-    with zipfile.ZipFile(file_path, "w", zipfile.ZIP_DEFLATED) as zipobj:
+    with ZipFile(file_path, "w", ZIP_DEFLATED) as zipobj:
         for base, _dirs, files in os.walk(target_dir):
             if any(ignored in base for ignored in directories_to_ignore):
                 continue
@@ -106,10 +106,10 @@ def upload(
     username: str | None,
     password: str | None,
     project_id: str,
-    zipfile_path: str,
+    zipfile: str,
 ):
-    """Log in to pling.com and upload zipfile_path to project_id."""
-    with open(zipfile_path, "rb") as handle:
+    """Log in to pling.com and upload zipfile to project_id."""
+    with open(zipfile, "rb") as handle:
         the_file = base64.b64encode(handle.read())
 
     headers = _browser_headers()
@@ -138,7 +138,7 @@ def upload(
     del headers["upgrade-insecure-requests"]
 
     params = dict(parse.parse_qsl(parse.urlsplit(upload_url).query))
-    files = {"file": (zipfile_path, the_file, "application/zip")}
+    files = {"file": (zipfile, the_file, "application/zip")}
     response = client.post(
         upload_url,
         params=params,
@@ -149,7 +149,7 @@ def upload(
 
     if '"status":"success"' in response.content.decode("UTF-8"):
         return True
-    typer.echo("Failed publishing: " + zipfile_path)
+    typer.echo("Failed publishing: " + zipfile)
     typer.echo("\n")
     typer.echo(response.content.decode("UTF-8"))
     return False
