@@ -17,7 +17,7 @@ entry_points = {"console_scripts": ["pling = pling_publisher.cli:app"]}
 
 setup_kwargs = {
     "name": "pling-publisher",
-    "version": "0.1.29",
+    "version": "0.1.30",
     "description": "",
     "long_description": (
         "# Pling Publisher\n"
